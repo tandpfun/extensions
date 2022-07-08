@@ -1,0 +1,73 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "discord-voice",
+  "title": "Discord Voice",
+  "description": "Control Discord voice channels with Raycast!\nMute, unmute, leave, and join voice channels easily.",
+  "icon": "discord.png",
+  "author": "coding",
+  "categories": [
+    "Communication",
+    "Applications",
+    "Productivity"
+  ],
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "mute",
+      "title": "Toggle Mute",
+      "subtitle": "Discord",
+      "description": "Toggle muting your microphone on Discord!",
+      "mode": "no-view"
+    },
+    {
+      "name": "deafen",
+      "title": "Toggle Deafen",
+      "subtitle": "Discord",
+      "description": "Toggle deafening on Discord!",
+      "mode": "no-view"
+    },
+    {
+      "name": "joinVoice",
+      "title": "Join Voice Channel",
+      "subtitle": "Discord",
+      "description": "Join a voice channel!",
+      "mode": "view"
+    },
+    {
+      "name": "leaveVoice",
+      "title": "Leave Voice Channel",
+      "subtitle": "Discord",
+      "description": "Leave a voice channel!",
+      "mode": "no-view"
+    },
+    {
+      "name": "serverCount",
+      "title": "Get Server Count",
+      "subtitle": "Discord",
+      "description": "Count how many servers you're in!",
+      "mode": "view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.37.1",
+    "discord-rpc": "^4.0.1",
+    "node-fetch": "^3.2.6",
+    "temp-dir": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/discord-rpc": "^4.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "discord-api-types": "^0.36.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.3"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint"
+  }
+}
