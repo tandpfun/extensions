@@ -96,7 +96,7 @@ export function ChannelsListItem({ channel }: { channel: Channel }) {
     <List.Item
       title={channel.name}
       subtitle={channel.id}
-      icon="voice.png"
+      icon="voice-channel.png"
       actions={<ChannelActionPanel channel={channel} />}
     />
   );

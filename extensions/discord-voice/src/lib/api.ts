@@ -1,5 +1,6 @@
 import { Toast } from "@raycast/api";
 import {
+  APIInvite,
   APIPartialGuild,
   APIUser,
   RESTGetAPICurrentUserGuildsResult,
@@ -8,6 +9,8 @@ import {
 import { Client } from "discord-rpc";
 import fetch from "node-fetch";
 import { apiURL, authorize, clientId, scopes, getOAuthTokens, resetOAuthTokens } from "./oauth";
+
+export type APIError = { message: string; code: number };
 
 process.env.TMPDIR = "/var/folders/_s/l9ydw42s39vby8h0vvwf1l8m0000gn/T";
 
@@ -67,5 +70,11 @@ export class API {
     return (await (
       await fetch(this.apiURL + "/users/@me/guilds", { headers: { Authorization: `Bearer ${this.accessToken}` } })
     ).json()) as Promise<RESTGetAPICurrentUserGuildsResult>;
+  }
+
+  async getInvite(invite: string) {
+    return (await (await fetch(this.apiURL + `/invites/${invite}?with_counts=1&with_expiration=1`)).json()) as Promise<
+      APIInvite | APIError
+    >;
   }
 }

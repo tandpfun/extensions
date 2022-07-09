@@ -46,6 +46,13 @@
       "subtitle": "Discord",
       "description": "Count how many servers you're in!",
       "mode": "view"
+    },
+    {
+      "name": "inviteInfo",
+      "title": "Get Invite Info",
+      "subtitle": "Discord",
+      "description": "Get information about a Discord invite without joining!",
+      "mode": "view"
     }
   ],
   "dependencies": {
