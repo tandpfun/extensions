@@ -48,15 +48,23 @@
       "mode": "view"
     },
     {
-      "name": "inviteInfo",
-      "title": "Get Invite Info",
+      "name": "inviteLookup",
+      "title": "Lookup Invite",
       "subtitle": "Discord",
       "description": "Get information about a Discord invite without joining!",
+      "mode": "view"
+    },
+    {
+      "name": "parseSnowflake",
+      "title": "Parse Snowflake ID",
+      "subtitle": "Discord",
+      "description": "Get the creation date and other info from a snowflake ID!",
       "mode": "view"
     }
   ],
   "dependencies": {
     "@raycast/api": "^1.37.1",
+    "@sapphire/snowflake": "^3.2.2",
     "discord-rpc": "^4.0.1",
     "node-fetch": "^3.2.6",
     "temp-dir": "^2.0.0"

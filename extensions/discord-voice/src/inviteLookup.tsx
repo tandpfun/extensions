@@ -1,5 +1,5 @@
-import { Action, ActionPanel, Color, Icon, List, ListItemProps } from "@raycast/api";
-import { APIGroupDMChannel, APIGuild, APIInvite, APIInviteGuild, RESTGetAPIInviteResult } from "discord-api-types/v10";
+import { Action, ActionPanel, Color, Icon, List } from "@raycast/api";
+import { APIGroupDMChannel, APIGuild, APIInvite, RESTGetAPIInviteResult } from "discord-api-types/v10";
 import { useState, useEffect } from "react";
 import { API } from "./lib/api";
 
@@ -11,8 +11,6 @@ function parseInvite(invite: string) {
   let parsedInvite;
   if (!inviteMatch?.[1]) parsedInvite = invite;
   else parsedInvite = inviteMatch[1];
-
-  console.dir(parsedInvite, { depth: null });
 
   if (!parsedInvite || parsedInvite.length < 2) return null;
   else return parsedInvite;
@@ -27,7 +25,6 @@ export default function InviteInfoList() {
   async function getInvite(invite: string) {
     const api = new API();
     const getInviteData = await api.getInvite(invite);
-    console.log(getInviteData);
     if ("message" in getInviteData) {
       setLoading(false);
       setInviteInvalid(true);
@@ -59,7 +56,7 @@ export default function InviteInfoList() {
   return (
     <List searchBarPlaceholder="Enter invite to look up" onSearchTextChange={setInvite} isLoading={isLoading} throttle>
       {inviteInvalid && (
-        <InviteInfoListItem
+        <List.Item
           title="Invalid Invite"
           subtitle="The invite is either invalid or has expired."
           icon={{ source: Icon.XmarkCircle, tintColor: Color.Red }}
@@ -88,13 +85,9 @@ export function InviteInfoSection({ invite }: { invite: APIInvite }) {
       <InviteInfoListItem
         title="Invite Type:"
         subtitle={invite.guild ? "Server Invite" : "Group DM Invite"}
-        icon={{ source: Icon.MagnifyingGlass, tintColor: Color.PrimaryText }}
+        icon={Icon.MagnifyingGlass}
       />
-      <InviteInfoListItem
-        title="Invite Expires At:"
-        subtitle={inviteExpires}
-        icon={{ source: Icon.Calendar, tintColor: Color.PrimaryText }}
-      />
+      <InviteInfoListItem title="Invite Expires At:" subtitle={inviteExpires} icon={Icon.Calendar} />
     </List.Section>
   );
 }
@@ -110,18 +103,8 @@ export function InviteGuildSection({ invite }: { invite: APIInvite }) {
         subtitle={invite.guild.name}
         icon={`https://cdn.discordapp.com/icons/${invite.guild.id}/${invite.guild.icon}.png?size=256`}
       />
-      {guildDescription && (
-        <InviteInfoListItem
-          title="Description:"
-          subtitle={guildDescription}
-          icon={{ source: Icon.Text, tintColor: Color.PrimaryText }}
-        />
-      )}
-      <InviteInfoListItem
-        title="Server ID:"
-        subtitle={invite.guild.id}
-        icon={{ source: Icon.Document, tintColor: Color.PrimaryText }}
-      />
+      {guildDescription && <InviteInfoListItem title="Description:" subtitle={guildDescription} icon={Icon.Text} />}
+      <InviteInfoListItem title="Server ID:" subtitle={invite.guild.id} icon={Icon.Document} />
       {invite.approximate_member_count && invite.approximate_presence_count && (
         <>
           <InviteInfoListItem
@@ -132,7 +115,7 @@ export function InviteGuildSection({ invite }: { invite: APIInvite }) {
           <InviteInfoListItem
             title="Member Count:"
             subtitle={invite.approximate_member_count.toLocaleString()}
-            icon={{ source: Icon.Person, tintColor: Color.PrimaryText }}
+            icon={Icon.Person}
           />
         </>
       )}
@@ -140,14 +123,10 @@ export function InviteGuildSection({ invite }: { invite: APIInvite }) {
         <InviteInfoListItem
           title="Vanity URL:"
           subtitle={`https://discord.gg/${invite.guild.vanity_url_code}`}
-          icon={{ source: Icon.Link, tintColor: Color.PrimaryText }}
+          icon={Icon.Link}
         />
       )}
-      <InviteInfoListItem
-        title="Features:"
-        subtitle={invite.guild.features.join(", ")}
-        icon={{ source: Icon.Star, tintColor: Color.PrimaryText }}
-      />
+      <InviteInfoListItem title="Features:" subtitle={invite.guild.features.join(", ")} icon={Icon.Star} />
     </List.Section>
   );
 }
@@ -173,11 +152,7 @@ export function InviteChannelSection({ invite }: { invite: APIInvite }) {
             : "text-channel.png"
         }
       />
-      <InviteInfoListItem
-        title="Channel ID:"
-        subtitle={invite.channel.id}
-        icon={{ source: Icon.Document, tintColor: Color.PrimaryText }}
-      />
+      <InviteInfoListItem title="Channel ID:" subtitle={invite.channel.id} icon={Icon.Document} />
     </List.Section>
   );
 }
@@ -195,11 +170,7 @@ export function InviteInviterSection({ invite }: { invite: APIInvite }) {
             : Icon.Person
         }
       />
-      <InviteInfoListItem
-        title="Creator ID:"
-        subtitle={invite.inviter.id}
-        icon={{ source: Icon.Document, tintColor: Color.PrimaryText }}
-      />
+      <InviteInfoListItem title="Creator ID:" subtitle={invite.inviter.id} icon={Icon.Document} />
     </List.Section>
   );
 }
