@@ -41,9 +41,15 @@ export class API {
         }
 
         if (toast) {
-          toast.title = `Connection Failed`;
-          toast.message = `Is Discord running?`;
-          toast.style = Toast.Style.Failure;
+          if (process.env.TMPDIR) {
+            toast.title = `Connection Failed`;
+            toast.message = `Is Discord running?`;
+            toast.style = Toast.Style.Failure;
+          } else {
+            toast.title = `Update Raycast`;
+            toast.message = `This extension requires a newer version. Run "Check for Updates" command.`;
+            toast.style = Toast.Style.Failure;
+          }
         }
         return;
       });
