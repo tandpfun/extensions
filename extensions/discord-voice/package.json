@@ -39,27 +39,6 @@
       "subtitle": "Discord",
       "description": "Leave a voice channel!",
       "mode": "no-view"
-    },
-    {
-      "name": "serverCount",
-      "title": "Get Server Count",
-      "subtitle": "Discord",
-      "description": "Count how many servers you're in!",
-      "mode": "view"
-    },
-    {
-      "name": "inviteLookup",
-      "title": "Lookup Invite",
-      "subtitle": "Discord",
-      "description": "Get information about a Discord invite without joining!",
-      "mode": "view"
-    },
-    {
-      "name": "parseSnowflake",
-      "title": "Parse Snowflake ID",
-      "subtitle": "Discord",
-      "description": "Get the creation date and other info from a snowflake ID!",
-      "mode": "view"
     }
   ],
   "dependencies": {

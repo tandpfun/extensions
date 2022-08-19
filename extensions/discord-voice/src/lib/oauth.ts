@@ -2,7 +2,7 @@ import { OAuth } from "@raycast/api";
 import fetch from "node-fetch";
 
 export const clientId = "994284054641913936";
-export const scopes = ["identify", "guilds", "rpc", "rpc.voice.write", "rpc.voice.read"];
+export const scopes = ["identify", "rpc", "rpc.voice.write", "rpc.voice.read"];
 export const apiURL = "https://discord.com/api/v10";
 
 const oauthClient = new OAuth.PKCEClient({
@@ -18,11 +18,14 @@ export async function authorize(): Promise<void> {
   const tokenSet = await oauthClient.getTokens();
   if (tokenSet?.accessToken) {
     if (tokenSet.refreshToken && tokenSet.isExpired()) {
-      await oauthClient.setTokens(await refreshTokens(tokenSet.refreshToken));
+      const newTokens = await refreshTokens(tokenSet.refreshToken).catch((_) => null);
+      if (!newTokens) return await getNewToken();
+      await oauthClient.setTokens(newTokens);
     }
-    return;
-  }
+  } else await getNewToken();
+}
 
+export async function getNewToken(): Promise<void> {
   const authRequest = await oauthClient.authorizationRequest({
     endpoint: "https://discord.com/oauth2/authorize",
     clientId: clientId,
